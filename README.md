@@ -1,3 +1,3 @@
 # DotFiles
 
-Los cambios de mis dot files
+Todos mis dotfiles de linux
