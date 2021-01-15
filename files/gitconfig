@@ -2,6 +2,6 @@
 	email = joywarmgun@gmail.com
 	name = Jesus Flores Acuña
 [core]
-	editor = nvim
+	editor = vim
 [merge]
 	conflictstyle = diff3
