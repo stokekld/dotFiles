@@ -5,3 +5,5 @@
 	editor = vim
 [merge]
 	conflictstyle = diff3
+[credential]
+	helper = store --file ~/.git-credentials
