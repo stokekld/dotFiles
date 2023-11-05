@@ -23,3 +23,30 @@ echo "export XDG_RUNTIME_DIR=/run/user/1000" >> /home/$NEW_USER/.profile
 echo "export WAYLAND_DISPLAY=wayland-0" >> /home/$NEW_USER/.profile
 echo "export QT_QPA_PLATFORM=wayland" >> /home/$NEW_USER/.profile
 echo "export DISPLAY=:0" >> /home/$NEW_USER/.profile
+
+# Reconfiguration on startup
+cat > /etc/systemd/system/window_host.service << EOF
+[Unit]
+Description=Create links for window manager
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /opt/window_host.sh
+
+[Install]
+WantedBy=multi-user.target
+EOF
+chmod 644 /etc/systemd/system/window_host.service
+systemctl enable window_host.service
+
+cat > /opt/window_host.sh << EOF
+#!/bin/sh
+
+# TODO: this line is not working
+ln -s /etc/wayland-0 /run/user/$(id -u $NEW_USER)/wayland-0
+ln -s /etc/X0 /tmp/.X11-unix/X0
+EOF
+chmod +x /opt/window_host.sh
+
+chmod 644 /etc/systemd/system/window_host.service
+systemctl enable window_host.service
