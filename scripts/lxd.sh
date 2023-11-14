@@ -16,10 +16,11 @@ sed -e 's/\s*\([\+0-9a-zA-Z]*\).*/\1/' << EOF | passwd $NEW_USER
 $NEW_USER_PWD
 $NEW_USER_PWD
 EOF
+mkdir /run/user/$(id -u $NEW_USER)
 ln -s /etc/wayland-0 /run/user/$(id -u $NEW_USER)/wayland-0
 mkdir /tmp/.X11-unix
 ln -s /etc/X0 /tmp/.X11-unix/X0
-echo "export XDG_RUNTIME_DIR=/run/user/1000" >> /home/$NEW_USER/.profile
+echo "export XDG_RUNTIME_DIR=/run/user/$(id -u $NEW_USER)" >> /home/$NEW_USER/.profile
 echo "export WAYLAND_DISPLAY=wayland-0" >> /home/$NEW_USER/.profile
 echo "export QT_QPA_PLATFORM=wayland" >> /home/$NEW_USER/.profile
 echo "export DISPLAY=:0" >> /home/$NEW_USER/.profile
